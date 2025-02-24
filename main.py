@@ -2,6 +2,7 @@ import time
 from datetime import datetime, timezone
 import sched
 from selenium import webdriver
+from selenium.webdriver.edge.options import Options as EdgeOptions
 import json
 import pytz
 from tabulate import tabulate
@@ -9,7 +10,9 @@ from api import Myworkspace
 
 # initialize the browser to get token from session storage
 def get_token():
-    browser = webdriver.ChromiumEdge()
+    options = EdgeOptions()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    browser = webdriver.ChromiumEdge(options=options)
     browser.get("https://myworkspace.microsoft.com/")
     time.sleep(15)
     storageKey = "be3c2eaf-1dce-4a89-bfc8-22d58fbc8a9f.72f988bf-86f1-41af-91ab-2d7cd011db47-login.windows.net-accesstoken-2ec0e21d-27e1-41a8-a154-6c791ce63b1a-72f988bf-86f1-41af-91ab-2d7cd011db47-api://2ec0e21d-27e1-41a8-a154-6c791ce63b1a/user_impersonation--"
