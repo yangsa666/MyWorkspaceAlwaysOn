@@ -1,7 +1,7 @@
 import requests
 
 class Myworkspace:
-    def __init__(self, access_token):
+    def __init__(self, access_token: str):
         self.headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
         'Origin': 'https://myworkspace.microsoft.com',
@@ -20,7 +20,7 @@ class Myworkspace:
             print(f"Failed to get workspace, error: {error}")
             return None
     
-    def start_workspace(self, workplace_id):
+    def start_workspace(self, workplace_id: str):
         try:
             response = self.session.post(f"https://myworkspace-prod.trafficmanager.net/azureworkspace/start/{workplace_id}")
             response.raise_for_status()
@@ -29,7 +29,7 @@ class Myworkspace:
             print(f"Failed to start workspace, error: {error}")
             return None
     
-    def extend_running_time(self, workplace_id, extend_hours):
+    def extend_running_time(self, workplace_id: str, extend_hours: int):
         try:
             response = self.session.put(
                 f"https://myworkspace-prod.trafficmanager.net/azureworkspace/extendruntime/{workplace_id}",
@@ -54,7 +54,7 @@ class Myworkspace:
             print(f"Failed to get NAT JIT, error: {error}")
             return None
 
-    def extend_jit(self, workplace_id, extend_hours):
+    def extend_jit(self, workplace_id: str, extend_hours: int):
         try:
             response = self.session.post(
                 "https://myworkspace-prod.trafficmanager.net/natrule/jit",
