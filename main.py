@@ -16,7 +16,7 @@ def get_token():
     sessionStorage = browser.execute_script("return window.sessionStorage")
     tokenObj = sessionStorage[storageKey]
     access_token = json.loads(tokenObj)['secret']
-    print('Got access_token:', access_token)
+    print('Got access_token successfully.')
     browser.quit()
     return access_token
 
@@ -71,7 +71,7 @@ def alwaysOn():
             result = mw.extend_running_time(workspace['ID'], 8)
             print(f"Running time extended for workspace {workspace['Name']} for additional {result} hours")
 
-    print("Myworkspace function executed successfully")
+    print("alwaysOn executed successfully this time")
 
 alwaysOn()
 scheduler = sched.scheduler(time.time, time.sleep)
