@@ -78,7 +78,7 @@ def alwaysOn():
 
 alwaysOn()
 
-schedule.every(30).minutes.do(alwaysOn)
+schedule.every(10).minutes.do(alwaysOn)
 
 while True:
     schedule.run_pending()
