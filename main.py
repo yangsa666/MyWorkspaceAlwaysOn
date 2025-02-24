@@ -41,7 +41,7 @@ def convert_utc_to_shanghai(utc_datetime_str):
     return shanghai_datetime_str
 
 def alwaysOn():
-    print("Starting AlwaysOn...")
+    print(datetime.now(pytz.timezone('Asia/Shanghai')), " Starting AlwaysOn...")
     token = get_token()
     mw = Myworkspace(token)
     workspaces = mw.get_workspaces()
