@@ -1,10 +1,10 @@
 import time
 from datetime import datetime, timezone
+import sched
 from selenium import webdriver
 import json
 import pytz
 from tabulate import tabulate
-import logging
 from api import Myworkspace
 
 # initialize the browser to get token from session storage
@@ -73,5 +73,8 @@ def alwaysOn():
 
     print("Myworkspace function executed successfully")
 
-
 alwaysOn()
+scheduler = sched.scheduler(time.time, time.sleep)
+# Schedule the alwaysOn function to run every 10 minutes
+scheduler.enter(600, 1, alwaysOn)
+scheduler.run()
