@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 import pytz
 import json
 import time
-import sched
+import schedule
 from tabulate import tabulate
 from api import Myworkspace
 
@@ -77,7 +77,9 @@ def alwaysOn():
     print("alwaysOn executed successfully this time")
 
 alwaysOn()
-scheduler = sched.scheduler(time.time, time.sleep)
-# Schedule the alwaysOn function to run every 10 minutes
-scheduler.enter(600, 1, alwaysOn)
-scheduler.run()
+
+schedule.every(30).minutes.do(alwaysOn)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
