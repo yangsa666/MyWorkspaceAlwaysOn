@@ -15,9 +15,10 @@ def get_token():
     browser = webdriver.ChromiumEdge(options=options)
     browser.get("https://myworkspace.microsoft.com/")
     time.sleep(15)
-    storageKey = "be3c2eaf-1dce-4a89-bfc8-22d58fbc8a9f.72f988bf-86f1-41af-91ab-2d7cd011db47-login.windows.net-accesstoken-2ec0e21d-27e1-41a8-a154-6c791ce63b1a-72f988bf-86f1-41af-91ab-2d7cd011db47-api://2ec0e21d-27e1-41a8-a154-6c791ce63b1a/user_impersonation--"
     sessionStorage = browser.execute_script("return window.sessionStorage")
-    tokenObj = sessionStorage[storageKey]
+    myworkspaceAppId = '2ec0e21d-27e1-41a8-a154-6c791ce63b1a'
+    tokenKey = json.loads(sessionStorage[f'msal.token.keys.{myworkspaceAppId}'])['accessToken'][1]
+    tokenObj = sessionStorage[tokenKey]
     access_token = json.loads(tokenObj)['secret']
     print('Got access_token successfully.')
     browser.quit()
