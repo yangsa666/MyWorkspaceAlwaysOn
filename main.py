@@ -10,19 +10,24 @@ from api import Myworkspace
 
 # initialize the browser to get token from session storage
 def get_token():
-    options = EdgeOptions()
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    browser = webdriver.ChromiumEdge(options=options)
-    browser.get("https://myworkspace.microsoft.com/")
-    time.sleep(15)
-    sessionStorage = browser.execute_script("return window.sessionStorage")
-    myworkspaceAppId = '2ec0e21d-27e1-41a8-a154-6c791ce63b1a'
-    tokenKey = json.loads(sessionStorage[f'msal.token.keys.{myworkspaceAppId}'])['accessToken'][1]
-    tokenObj = sessionStorage[tokenKey]
-    access_token = json.loads(tokenObj)['secret']
-    print('Got access_token successfully.')
-    browser.quit()
-    return access_token
+    try:
+        options = EdgeOptions()
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        browser = webdriver.ChromiumEdge(options=options)
+        browser.get("https://myworkspace.microsoft.com/")
+        time.sleep(15)
+        sessionStorage = browser.execute_script("return window.sessionStorage")
+        print(sessionStorage)
+        myworkspaceAppId = '2ec0e21d-27e1-41a8-a154-6c791ce63b1a'
+        tokenKey = json.loads(sessionStorage[f'msal.token.keys.{myworkspaceAppId}'])['accessToken'][1]
+        tokenObj = sessionStorage[tokenKey]
+        access_token = json.loads(tokenObj)['secret']
+        print('Got access_token successfully.')
+        browser.quit()
+        return access_token
+    except Exception as e:
+        print(f"Failed to get access_token, error: {e}")
+        return None
 
 def conver_jit_status(status_code):
     if status_code == 5:
